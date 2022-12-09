@@ -22,7 +22,7 @@ bgctx.imageSmoothingEnabled = false
 
 window.onload = function () {
 
-  startGame();
+  resetGame();
   spawnObstacles()
   objectList["background"] = new Background(0, 0, 1200, 1000, "background")
 }
