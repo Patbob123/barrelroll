@@ -20,11 +20,14 @@ let bgcan = document.getElementById('bgcanvas');
 let bgctx = bgcan.getContext('2d')
 bgctx.imageSmoothingEnabled = false
 
-window.onload = function () {
-
+document.addEventListener("DOMContentLoaded", function(event){
   resetGame();
   spawnObstacles()
   objectList["background"] = new Background(0, 0, 1200, 1000, "background")
+});
+window.onload = function () {
+
+ 
 }
 function startGame(){
   let startscreen = new Start()
