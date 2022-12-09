@@ -22,6 +22,14 @@
 
 <img class="invisible" id="title" width="100" height="100" src="/images/title.png">
 
+<img class="invisible" id="playerpfp" width="100" height="100">
+<img class="invisible" id="playerhalo" width="100" height="100" src="/images/playerhalo.png">
+
+<audio id="coinsound"><source src="/audio/coin.mp3" type="audio/mpeg"></audio>
+<audio id="diedsound"><source src="/audio/died.mp3" type="audio/mpeg"></audio>
+<audio id="halosound"><source src="/audio/halo.mp3" type="audio/mpeg"></audio>
+<audio id="sidestep"><source src="/audio/sidestep.mp3" type="audio/mpeg"></audio>
+  
 
 <body>
   
@@ -32,7 +40,7 @@
     </div>
     <div id="setting" onmousedown="settingDown()" onmouseup="settingUp()"></div>
     <div class="invisible" id="restart" onmousedown="restartDown()" onmouseup="restartUp()"></div>
-    <div id="start" class="invisible" onmousedown="restartDown()" onmouseup="restartUp()"></div>
+    <div id="start" onmousedown="startDown()"></div>
     <div id="score">
         <div class="numbers" id="number1"></div>
         <div class="numbers" id="number2"></div>

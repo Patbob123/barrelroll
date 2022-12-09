@@ -125,7 +125,7 @@ div {
     height: 200px;
     z-index:100;
 }
-#restart {
+#start {
     background-image: url('images/start.png');
     position: absolute;
     left: 400px;

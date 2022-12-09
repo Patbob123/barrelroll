@@ -8,15 +8,12 @@ class Start{
     }
     draw(ctx){
         ctx.fillStyle = "black"
-        ctx.globalAlpha = this.opacity/100
-        ctx.fillRect(this.x,this.y, this.w, this.h)  
 
         let img = document.getElementById("title");
-        ctx.drawImage(img, 400, 200, 400, 200);
+        ctx.drawImage(img, 250, 50, 700, 700);
     }
     appear(){
-      let that = this;
-      
+      this.draw(ctx)
       
     }
   }

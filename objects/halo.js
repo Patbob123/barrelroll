@@ -35,6 +35,7 @@ class Halo{
             curObjects.splice(this, 1)
             objectList["obstacle"].push(that)
         },0)
+        document.getElementById("halosound").play()
     }
   }
   

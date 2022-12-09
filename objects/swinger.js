@@ -58,7 +58,15 @@ class Swinger{
     hit(){
       if (invince <= 0) {
         die()
-      }
+      }else {
+        score+=5;
+        let that = this;
+        setTimeout(function () {
+            curObjects.splice(this, 1)
+            objectList["obstacle"].push(that)
+        }, 0)
+        document.getElementById("coinsound").play()
+    }
       
     }
   }

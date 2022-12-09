@@ -4,7 +4,7 @@ let lanewidth = 200;
 let score;
 let scoreTick;
 let invince;
-let pause;
+let pause = true;
 let permaPause;
 let gamespeed;
 let spawnRate;
@@ -12,33 +12,55 @@ let spawnTick;
 let objectList = {}
 objectList["obstacle"] = []
 let curObjects = [];
+
+let startMenu = true;
+
 let can = document.getElementById('thecanvas');
 let ctx = can.getContext('2d')
 ctx.imageSmoothingEnabled = false
+
+let playerimgsrc = "/pfp.png"
 
 let bgcan = document.getElementById('bgcanvas');
 let bgctx = bgcan.getContext('2d')
 bgctx.imageSmoothingEnabled = false
 
 document.addEventListener("DOMContentLoaded", function(event){
-  resetGame();
-  spawnObstacles()
-  objectList["background"] = new Background(0, 0, 1200, 1000, "background")
-});
-window.onload = function () {
+  let pfp = document.getElementById('playerpfp');
+  let playerimg = new Image;
+  playerimg.onload = function() {
+    pfp.src = playerimg.src;
+  }
+  playerimg.src = playerimgsrc
 
- 
-}
+  objectList["background"] = new Background(0, 0, 1200, 1000, "background")
+  objectList["start"] = new Start()
+  startGame();
+  spawnObstacles()
+  
+});
+
 function startGame(){
   let startscreen = new Start()
-  startscreen.appear()
+ 
+
+   let startBG = setInterval(function () {
+    console.log(startMenu)
+    if(!startMenu){
+      console.log(startBG)
+      clearInterval(startBG);
+    }
+      for(let i =0;i<objectList.length;i++){}
+      objectList["background"].updateBG()
+      startscreen.appear()
+    },10)
+  
+  setupEnvironment()
 }
 
 
-
-function resetGame() {
+function setupEnvironment(){
   permaPause = false;
-  pause = false;
   score = 0
   scoreTick = 0;
   invince = 0;
@@ -48,31 +70,36 @@ function resetGame() {
   objectList = {}
   curObjects = [];
   ctx.clearRect(0, 0, can.width, can.height)
-
+  objectList["background"] = new Background(0, 0, 1200, 1000, "background")
   objectList["character"] = new Character(100 + 2 * 200, 700, 200, 200, "barrelidle", "barrelmove", "none")
 
   objectList["obstacle"] = []
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 50; i++) {
     objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass"));
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 10; i++) {
     objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter"))
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 10; i++) {
     objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter"))
   }
-  for(let i =0;i<1;i++){
+  for(let i =0;i<5;i++){
     objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger"))
 
   }
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 25; i++) {
     objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin"))
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 1; i++) {
     objectList["obstacle"].push(new Halo(i, 0, 0, 200, 200, "halo"))
   }
-  
   console.log(objectList)
+}
+
+function resetGame() {
+  pause = false;
+  setupEnvironment()
+  clearInterval(game)
   game = setInterval(function () {
 
     if (!pause) {
@@ -114,14 +141,13 @@ function addscore() {
   if (scoreTick % 100 == 0) {
     score++;
     gamespeed = score * 10;
+  }
     for (let i = 1; i < 5; i++) {
       document.getElementById("number" + i).style["background-image"] = "none";
     }
     for (let i = 1; i < score.toString().length + 1; i++) {
-      console.log(score)
-      console.log(score.toString().charAt(i - 1))
       document.getElementById("number" + i).style["background-image"] = 'url("images/' + score.toString().charAt(i - 1) + '.png")';
-    }
+    
   }
 }
 
@@ -153,11 +179,13 @@ document.addEventListener('keydown', function (event) {
       case "a":
       case "A":
       case "ArrowLeft":
+        document.getElementById("sidestep").play()
         objectList["character"].move("left")
         break;
       case "d":
       case "D":
       case "ArrowRight":
+        document.getElementById("sidestep").play()
         objectList["character"].move("right")
         break;
       case "Escape":
@@ -199,6 +227,12 @@ function restartUp() {
   
 }
 
+function startDown() {
+  // document.getElementById("restart").style["background-image"] = 'url("images/restarthold.png")';
+   document.getElementById("start").classList.add("invisible")
+   startMenu = false;
+   resetGame()
+ }
 
 function pauseGame() {
   if(!permaPause){
@@ -218,6 +252,7 @@ function die(){
   deathscreen.appear();
   permaPause = true;
   pause = true;
+  document.getElementById("diedsound").play()
 }
 
 function round(number, increment, offset) {
