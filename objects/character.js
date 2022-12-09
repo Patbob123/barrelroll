@@ -1,3 +1,4 @@
+
 class Character {
   constructor(x, y, w, h, idle, mover, direction) {
     this.x = x;
@@ -11,7 +12,17 @@ class Character {
     this.frame = 3;
     this.updates = 0;
     this.staggerFrame = 10;
+    this.barrelframes = {
+      0: 0,
+      1: 25,
+      2: 0,
+      3: 0,
+      4: -25,
+      5: 0,
+      6: 0,
+    }
   }
+  
   draw(ctx) {
     // ctx.fillStyle = "black"
     // ctx.fillRect(this.x,this.y, this.w, this.h)  
@@ -33,11 +44,11 @@ class Character {
     }
 
     let playerpfp = document.getElementById("playerpfp");
-    ctx.drawImage(playerpfp, this.x+50, this.y+50, this.w-100, this.h-100);
+    ctx.drawImage(playerpfp, this.x+50+this.barrelframes[this.frame], this.y+50, this.w-100, this.h-100);
 
     if(invince>0){
       let playerpfp = document.getElementById("playerhalo");
-      ctx.drawImage(playerpfp, this.x+50, this.y, this.w-100, this.h-100);
+      ctx.drawImage(playerpfp, this.x+50+this.barrelframes[this.frame], this.y, this.w-100, this.h-100);
     }
   }
   update() {
