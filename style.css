@@ -1,0 +1,158 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    background-repeat: no-repeat;
+    background-size: cover;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    position: absolute;
+}
+div {
+    background-repeat: no-repeat;
+    background-size: cover;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    position: absolute;
+}
+
+#plane {
+    display: flex;
+    width: 64rem;
+    height: 50rem;
+    overflow:hidden;
+    background-color: aquamarine;
+    color: rgb(255, 202, 58);
+}
+/* .background {
+    background-image: url('images/background.png');
+    background-color: black;
+    top: 0;
+    width: 64rem;
+    height: 51rem;
+    position: absolute;
+} */
+#character {
+    position: absolute;
+    top: 32rem;
+    left: 30rem;
+    width: 8rem;
+    height: 6rem;
+    background-color: rgb(250, 87, 46);
+    color: rgb(255, 202, 58);
+}
+
+.grassObstacle {
+    background-image: url('images/grass.png');
+
+    position: absolute;
+    left: 30rem;
+    width: 8rem;
+    height: 8rem;
+     
+    color: rgb(255, 202, 58);
+
+}
+
+.leftObstacle {
+    background-image: url('images/goleft.png');
+    position: absolute;
+    left: 30rem;
+    width: 8rem;
+    height: 8rem;
+   
+    color: rgb(255, 202, 58);
+}
+
+.rightObstacle {
+    background-image: url('images/goright.png');
+    position: absolute;
+    left: 30rem;
+    width: 8rem;
+    height: 8rem;
+    color: rgb(255, 202, 58);
+}
+.coin {
+    background-image: url('images/coint.png');
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+}
+.invincibility {
+    background-image: url('images/invince.png');
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+}
+
+#score {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    left: 52rem;
+    top: 2rem;
+    height: 50px;
+    width: 300px;
+    background-color: aquamarine;
+  
+}
+#setting {
+    background-image: url('images/setting.png');
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+    width: 100px;
+    height: 100px;
+    z-index:100;
+}
+#restart {
+    background-image: url('images/restart.png');
+    position: absolute;
+    left: 400px;
+    top: 700px;
+    width: 400px;
+    height: 200px;
+    z-index:100;
+}
+#restart {
+    background-image: url('images/start.png');
+    position: absolute;
+    left: 400px;
+    top: 700px;
+    width: 400px;
+    height: 200px;
+    z-index:100;
+}
+#canvas{
+    background: blue;
+    z-index:200;
+    position: absolute;
+    opacity: 50%;
+}
+.numbers{
+    position: relative;
+    width: 50px;
+    height: 64px;
+    z-index:100;
+}
+.invisible {
+    display:none;
+}
+#overflowhidden {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: 64rem;
+    height: 52rem;
+    top: 48rem;
+}
