@@ -1,11 +1,12 @@
 class Coin{
-    constructor(id, x, y, w, h, src){
+    constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;
       this.y = y;
       this.w = w;
       this.h = h;
       this.src = src;
+      this.type = type;
       this.frame = 0;
       this.staggerFrame = 50;
     }
@@ -23,19 +24,30 @@ class Coin{
         if(this.y>1000){
             let that = this;
             setTimeout( function() {
-                curObjects.splice(this, 1)
+                curObjects.splice(that, 1)
                 objectList["obstacle"].push(that)
             },0)
         }
     }
     hit(){
+        this.collectEffect(ctx)
         score+=5;
         let that = this;
         setTimeout( function() {
-            curObjects.splice(this, 1)
+            curObjects.splice(that, 1)
             objectList["obstacle"].push(that)
         },0)
+       
         document.getElementById("coinsound").play()
+    }
+    collectEffect(ctx){
+        console.log('effect')
+        let img = document.getElementById(this.src);
+        for(let i = 0;i<100;i++){
+            // ctx.globalAlpha = 100
+            ctx.drawImage(img, this.frame*16,0, 16, 16, 
+                this.x, this.y, this.w, this.h);
+        }
     }
   }
   

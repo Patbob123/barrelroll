@@ -14,15 +14,15 @@ class Character {
     this.staggerFrame = 10;
     this.barrelframes = {
       0: 0,
-      1: 25,
+      1: -25,
       2: 0,
       3: 0,
-      4: -25,
-      5: 0,
+      4: 0,
+      5: 25,
       6: 0,
     }
   }
-  
+
   draw(ctx) {
     // ctx.fillStyle = "black"
     // ctx.fillRect(this.x,this.y, this.w, this.h)  
@@ -44,11 +44,11 @@ class Character {
     }
 
     let playerpfp = document.getElementById("playerpfp");
-    ctx.drawImage(playerpfp, this.x+50+this.barrelframes[this.frame], this.y+50, this.w-100, this.h-100);
+    ctx.drawImage(playerpfp, this.x + 50 + this.barrelframes[this.frame], this.y + 50, this.w - 100, this.h - 100);
 
-    if(invince>0){
+    if (invince > 0) {
       let playerpfp = document.getElementById("playerhalo");
-      ctx.drawImage(playerpfp, this.x+50+this.barrelframes[this.frame], this.y, this.w-100, this.h-100);
+      ctx.drawImage(playerpfp, this.x + 50 + this.barrelframes[this.frame], this.y, this.w - 100, this.h - 100);
     }
   }
   update() {
@@ -90,10 +90,39 @@ class Character {
   move(direction) {
     this.frame = 0;
     if (this.direction == "none") {
+      if (this.checkSides(direction)) {
+        return
+      }
+
       if (direction == "left" && this.x > 102 || direction == "right" && this.x < 888) {
+        document.getElementById("sidestep").play()
         this.direction = direction
       }
 
     }
+  }
+  checkSides(direction) {
+    for (let i = 0; i < curObjects.length; i++) {
+      if ((curObjects[i].y + curObjects[i].h) > objectList["character"].y + 50
+        && (objectList["character"].y + objectList["character"].h) > curObjects[i].y + 50) {
+        if (direction == "right"
+          && curObjects[i].x < (objectList["character"].x + objectList["character"].w + 10)
+          && (objectList["character"].x + objectList["character"].w + 10) < (curObjects[i].x + curObjects[i].w)
+          && curObjects[i].type =="trap"
+        ) {
+          return true
+        }
+        if (direction == "left"
+          && curObjects[i].x < (objectList["character"].x - 10)
+          && (objectList["character"].x - 10) < (curObjects[i].x + curObjects[i].w)
+          && curObjects[i].type =="trap"
+        ) {
+          console.log("LOFET")
+          return true
+        }
+      }
+
+    }
+    return false;
   }
 }

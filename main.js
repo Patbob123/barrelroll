@@ -1,23 +1,26 @@
+// import availibleCompanies from './availibleCompanies.js';
+// console.log(availibleCompanies)
+
 let game
 
 let lanewidth = 200;
-let score;
-let scoreTick;
-let invince;
+let score, scoreTick, invince, permaPause, gamespeed, spawnRate, spawnTick, halocount;
 let pause = true;
-let permaPause;
-let gamespeed;
-let spawnRate;
-let spawnTick;
+
 let objectList = {}
 objectList["obstacle"] = []
 let curObjects = [];
+let collectedLogoList = [];
 
 let startMenu = true;
 
 let can = document.getElementById('thecanvas');
 let ctx = can.getContext('2d')
 ctx.imageSmoothingEnabled = false
+
+let parcan = document.getElementById('particlecanvas');
+let parctx = can.getContext('2d')
+parctx.imageSmoothingEnabled = false
 
 let playerimgsrc = "/pfp.png"
 
@@ -40,9 +43,19 @@ document.addEventListener("DOMContentLoaded", function(event){
   
 });
 
+function loadLogos(){
+  for(let i = 0;i<availibleCompanies.length;i++){
+    let logoImg = document.createElement("img")
+    logoImg.src = availibleCompanies[i]["logoFile"]
+    availibleCompanies[i]["logoImg"] = logoImg
+  }
+  console.log(availibleCompanies)
+  console.log(availibleCompanies[1]['logoImg'])
+}
+
 function startGame(){
   let startscreen = new Start()
- 
+  loadLogos()
 
    let startBG = setInterval(function () {
     console.log(startMenu)
@@ -61,37 +74,42 @@ function startGame(){
 
 function setupEnvironment(){
   permaPause = false;
-  score = 0
+  score = 1;
   scoreTick = 0;
   invince = 0;
-  gamespeed = score;
+  gamespeed = 100;
   spawnRate = 5000;
   spawnTick = 0;
   objectList = {}
   curObjects = [];
+  halocount = 0;
   ctx.clearRect(0, 0, can.width, can.height)
   objectList["background"] = new Background(0, 0, 1200, 1000, "background")
   objectList["character"] = new Character(100 + 2 * 200, 700, 200, 200, "barrelidle", "barrelmove", "none")
 
   objectList["obstacle"] = []
-  for (let i = 0; i < 50; i++) {
-    objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass"));
+  for (let i = 0; i < availibleCompanies.length; i++) {
+    objectList["obstacle"].push(new Card(i, 0, 0, 200, 200, "card", i, "collect"));
   }
-  for (let i = 0; i < 10; i++) {
-    objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter"))
-  }
-  for (let i = 0; i < 10; i++) {
-    objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter"))
-  }
-  for(let i =0;i<5;i++){
-    objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger"))
 
-  }
+  // for (let i = 0; i < 50; i++) {
+  //   objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass", "trap"));
+  // }
+  // for (let i = 0; i < 10; i++) {
+  //   objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter", "trap"))
+  // }
+  // for (let i = 0; i < 10; i++) {
+  //   objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter", "trap"))
+  // }
+  // for(let i =0;i<5;i++){
+  //   objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger", "trap"))
+
+  // }
   for (let i = 0; i < 25; i++) {
-    objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin"))
+    objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin", "collect"))
   }
   for (let i = 0; i < 1; i++) {
-    objectList["obstacle"].push(new Halo(i, 0, 0, 200, 200, "halo"))
+    objectList["obstacle"].push(new Halo(i, 0, 0, 200, 200, "halo", "collect"))
   }
   console.log(objectList)
 }
@@ -140,7 +158,7 @@ function addscore() {
   scoreTick++;
   if (scoreTick % 100 == 0) {
     score++;
-    gamespeed = score * 10;
+    gamespeed = 100 + score * 10;
   }
     for (let i = 1; i < 5; i++) {
       document.getElementById("number" + i).style["background-image"] = "none";
@@ -167,42 +185,7 @@ function spawnObstacles() {
 
 }
 
-document.addEventListener('keydown', function (event) {
-  console.log(event)
-  if (!pause) {
-    switch (event.key) {
-      case "ArrowDown":
 
-        break;
-      case "ArrowUp":
-        break;
-      case "a":
-      case "A":
-      case "ArrowLeft":
-        document.getElementById("sidestep").play()
-        objectList["character"].move("left")
-        break;
-      case "d":
-      case "D":
-      case "ArrowRight":
-        document.getElementById("sidestep").play()
-        objectList["character"].move("right")
-        break;
-      case "Escape":
-        pauseGame()
-        break;
-      default:
-        return;
-    }
-  }
-  else {
-    switch (event.key) {
-      case "Escape":
-        pauseGame()
-        break;
-    }
-  }
-});
 
 
 function settingDown() {

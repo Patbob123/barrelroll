@@ -1,11 +1,12 @@
 class Grass {
-    constructor(id, x, y, w, h, src) {
+    constructor(id, x, y, w, h, src, type) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.src = src;
+        this.type = type;
     }
     draw(ctx) {
         // ctx.fillStyle = "black"
@@ -19,7 +20,7 @@ class Grass {
         if (this.y > 1000) {
             let that = this;
             setTimeout(function () {
-                curObjects.splice(this, 1)
+                curObjects.splice(that, 1)
                 objectList["obstacle"].push(that)
             }, 0)
         }
@@ -31,7 +32,7 @@ class Grass {
             score+=5;
             let that = this;
             setTimeout(function () {
-                curObjects.splice(this, 1)
+                curObjects.splice(that, 1)
                 objectList["obstacle"].push(that)
             }, 0)
             document.getElementById("coinsound").play()

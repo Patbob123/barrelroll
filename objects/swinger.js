@@ -1,5 +1,5 @@
 class Swinger{
-    constructor(id, x, y, w, h, src){
+    constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;
       this.y = y;
@@ -7,6 +7,7 @@ class Swinger{
       this.h = h;
       this.oldX = x;
       this.src = src;
+      this.type = type;
       this.updates = 0;
       this.frame = 0;
       this.direction = "left";
@@ -62,7 +63,7 @@ class Swinger{
         score+=5;
         let that = this;
         setTimeout(function () {
-            curObjects.splice(this, 1)
+            curObjects.splice(that, 1)
             objectList["obstacle"].push(that)
         }, 0)
         document.getElementById("coinsound").play()

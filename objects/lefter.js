@@ -1,11 +1,12 @@
 class Lefter{
-    constructor(id, x, y, w, h, src){
+    constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;
       this.y = y;
       this.w = w;
       this.h = h;
       this.src = src;
+      this.type = type;
       this.abilStatus = 0; //0 = unused, 1 using, 2 used
       this.oldX = x;
       this.frame = 0;
@@ -42,7 +43,7 @@ class Lefter{
         setTimeout( function() {
           that.abilStatus = 0
           that.frame = 0;
-          curObjects.splice(this, 1)
+          curObjects.splice(that, 1)
           objectList["obstacle"].push(that)
       },0)
       }
@@ -67,7 +68,7 @@ class Lefter{
         score+=5;
         let that = this;
         setTimeout(function () {
-            curObjects.splice(this, 1)
+            curObjects.splice(that, 1)
             objectList["obstacle"].push(that)
         }, 0)
         document.getElementById("coinsound").play()

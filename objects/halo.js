@@ -1,11 +1,12 @@
 class Halo{
-    constructor(id, x, y, w, h, src){
+    constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;
       this.y = y;
       this.w = w;
       this.h = h;
       this.src = src;
+      this.type = type;
       this.frame = 0;
       this.staggerFrame = 50;
     }
@@ -23,16 +24,17 @@ class Halo{
         if(this.y>1000){
             let that = this;
             setTimeout( function() {
-                curObjects.splice(this, 1)
+                curObjects.splice(that, 1)
                 objectList["obstacle"].push(that)
             },0)
         }
     }
     hit(){
         invince = 500;
+        halocount++;
         let that = this;
         setTimeout( function() {
-            curObjects.splice(this, 1)
+            curObjects.splice(that, 1)
             objectList["obstacle"].push(that)
         },0)
         document.getElementById("halosound").play()
