@@ -17,8 +17,8 @@ class Character {
       1: -25,
       2: 0,
       3: 0,
-      4: 0,
-      5: 25,
+      4: 25,
+      5: 0,
       6: 0,
     }
   }
@@ -48,7 +48,9 @@ class Character {
 
     if (invince > 0) {
       let playerpfp = document.getElementById("playerhalo");
+      ctx.globalAlpha = invince/500
       ctx.drawImage(playerpfp, this.x + 50 + this.barrelframes[this.frame], this.y, this.w - 100, this.h - 100);
+      ctx.globalAlpha = 1;
     }
   }
   update() {
@@ -86,6 +88,14 @@ class Character {
 
     }
     this.draw(ctx)
+    for(let i = 0; i<effectQueue.length;i++){
+      if(effectQueue[i]["effectTime"]<effectQueue[i]["duration"]){
+        effectQueue[i].playEffect(parctx);
+      }else{
+        effectQueue.splice(i, 1)
+      }
+      
+    }
   }
   move(direction) {
     this.frame = 0;

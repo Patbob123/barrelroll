@@ -11,6 +11,7 @@ let objectList = {}
 objectList["obstacle"] = []
 let curObjects = [];
 let collectedLogoList = [];
+let effectQueue = [];
 
 let startMenu = true;
 
@@ -82,6 +83,8 @@ function setupEnvironment(){
   spawnTick = 0;
   objectList = {}
   curObjects = [];
+  collectedLogoList = [];
+  effectQueue = [];
   halocount = 0;
   ctx.clearRect(0, 0, can.width, can.height)
   objectList["background"] = new Background(0, 0, 1200, 1000, "background")

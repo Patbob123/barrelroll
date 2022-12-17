@@ -30,6 +30,7 @@
 <audio id="diedsound"><source src="/audio/died.mp3" type="audio/mpeg"></audio>
 <audio id="halosound"><source src="/audio/halo.mp3" type="audio/mpeg"></audio>
 <audio id="sidestep"><source src="/audio/sidestep.mp3" type="audio/mpeg"></audio>
+<audio id="cardsound"><source src="/audio/card.mp3" type="audio/mpeg"></audio>
   
 
 <body>
@@ -38,7 +39,7 @@
     <div style="position: relative;">
         <canvas id="thecanvas" style="z-index:3" width="1200" height="1000"></canvas>
         <canvas id="bgcanvas" style="z-index:1"width="1200" height="1000"></canvas>
-        <canvas id="particlecanvas" style="z-index:2"width="1200" height="1000"></canvas>
+        <canvas id="particlecanvas" style="z-index:4"width="1200" height="1000"></canvas>
     </div>
     <div id="setting" onmousedown="settingDown()" onmouseup="settingUp()"></div>
     <div class="invisible" id="restart" onmousedown="restartDown()" onmouseup="restartUp()"></div>
@@ -63,6 +64,11 @@
     <script src="objects/grass.js" type="text/javascript"></script>
     <script src="objects/character.js" type="text/javascript"></script>
     <script src="objects/background.js" type="text/javascript"></script>
+
+    <script src="particles/collect.js" type="text/javascript"></script>
+    <script src="particles/timeslow.js" type="text/javascript"></script>
+    <script src="particles/dirtpath.js" type="text/javascript"></script>
+    <script src="particles/invince.js" type="text/javascript"></script>
 
     <script src="gui/death.js" type="text/javascript"></script>
     <script src="gui/start.js" type="text/javascript"></script>

@@ -46,9 +46,9 @@ class Card{
         let that = this;
         setTimeout( function() {
             curObjects.splice(that, 1)
-            collectedLogoList.add(availibleCompanies[that.companyIndex]["name"])
+            collectedLogoList.push(availibleCompanies[that.companyIndex]["name"])
         },0)
-        document.getElementById("halosound").play()
+        document.getElementById("cardsound").play()
     }
   }
   

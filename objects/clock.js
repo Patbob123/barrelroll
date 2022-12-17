@@ -1,4 +1,4 @@
-class Coin{
+class Clock{
     constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;

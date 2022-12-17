@@ -42,12 +42,11 @@ function touchEvents(){
     document.addEventListener('touchstart', handleTouchStart, false);        
     document.addEventListener('touchmove', handleTouchMove, false);
 
-    var xDown = null;                                                        
-    var yDown = null;
+    let xDown = null;                                                        
+    let yDown = null;
 
     function getTouches(evt) {
-    return evt.touches ||
-            evt.originalEvent.touches;
+      return evt.touches || evt.originalEvent.touches;
     }                                                     
                                                                             
     function handleTouchStart(evt) {
@@ -61,11 +60,11 @@ function touchEvents(){
             return;
         }
 
-        var xUp = evt.touches[0].clientX;                                    
-        var yUp = evt.touches[0].clientY;
+        let xUp = evt.touches[0].clientX;                                    
+        let yUp = evt.touches[0].clientY;
 
-        var xDiff = xDown - xUp;
-        var yDiff = yDown - yUp;
+        let xDiff = xDown - xUp;
+        let yDiff = yDown - yUp;
                                                                             
         if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
             if ( xDiff > 0 ) {
