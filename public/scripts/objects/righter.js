@@ -13,8 +13,8 @@ class Righter{
     this.abilPoint = 100;
   }
   draw(ctx){
-      ctx.fillStyle = "black"
-      ctx.fillRect(this.x,this.y, this.w, this.h) 
+      // ctx.fillStyle = "black"
+      // ctx.fillRect(this.x,this.y, this.w, this.h) 
       let img = document.getElementById(this.src);
       ctx.drawImage(img, this.frame*32,0, 32, 16, 
         this.oldX, this.y, this.w*2, this.h);
@@ -35,10 +35,9 @@ class Righter{
     if(this.y>1000){
       let that = this;
       setTimeout( function() {
-        that.abilStatus = 0
-        that.frame = 0;
-        curObjects.splice(that, 1)
-        objectList["obstacle"].push(that)
+        let i = that.id
+        curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+        objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter", "trap"))
     },0)
     }
   }
@@ -61,8 +60,9 @@ class Righter{
       score+=5;
       let that = this;
       setTimeout(function () {
-          curObjects.splice(that, 1)
-          objectList["obstacle"].push(that)
+          let i = that.id
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter", "trap"))
       }, 0)
       document.getElementById("coinsound").play()
   }

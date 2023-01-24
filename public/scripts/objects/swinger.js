@@ -50,9 +50,9 @@ class Swinger{
       if(this.y>1000){
         let that = this;
         setTimeout( function() {
-          that.frame = 0;
-          curObjects.splice(this, 1)
-          objectList["obstacle"].push(that)
+          let i = that.id
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger", "trap"))
       },0)
       }
     }
@@ -63,8 +63,9 @@ class Swinger{
         score+=5;
         let that = this;
         setTimeout(function () {
-            curObjects.splice(that, 1)
-            objectList["obstacle"].push(that)
+            let i = that.id
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger", "trap"))
         }, 0)
         document.getElementById("coinsound").play()
     }

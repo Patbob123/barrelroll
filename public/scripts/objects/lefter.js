@@ -41,10 +41,9 @@ class Lefter{
       if(this.y>1000){
         let that = this;
         setTimeout( function() {
-          that.abilStatus = 0
-          that.frame = 0;
-          curObjects.splice(that, 1)
-          objectList["obstacle"].push(that)
+          let i = that.id
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter", "trap"))
       },0)
       }
     }
@@ -68,8 +67,9 @@ class Lefter{
         score+=5;
         let that = this;
         setTimeout(function () {
-            curObjects.splice(that, 1)
-            objectList["obstacle"].push(that)
+            let i = that.id
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter", "trap"))
         }, 0)
         document.getElementById("coinsound").play()
     }

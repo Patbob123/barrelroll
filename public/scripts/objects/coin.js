@@ -1,4 +1,4 @@
-class Halo{
+class Coin{
     constructor(id, x, y, w, h, src, type){
       this.id = id;
       this.x = x;
@@ -24,20 +24,22 @@ class Halo{
         if(this.y>1000){
             let that = this;
             setTimeout( function() {
-                curObjects.splice(that, 1)
-                objectList["obstacle"].push(that)
+                let i = that.id
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin", "collect"))
             },0)
         }
     }
     hit(){
-        invince = 500;
-        halocount++;
+        score+=5;
         let that = this;
         setTimeout( function() {
-            curObjects.splice(that, 1)
-            objectList["obstacle"].push(that)
+            let i = that.id
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin", "collect"))
         },0)
-        document.getElementById("halosound").play()
+        effectQueue.push(new Collect(this.w, this.h, this.src+"collect", 50))
+        document.getElementById("coinsound").play()
     }
   }
   

@@ -20,8 +20,12 @@ class Grass {
         if (this.y > 1000) {
             let that = this;
             setTimeout(function () {
-                curObjects.splice(that, 1)
-                objectList["obstacle"].push(that)
+                let i = that.id
+                console.log(curObjects)
+                console.log(that)
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+
+                objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass", "trap"))
             }, 0)
         }
     }
@@ -32,8 +36,9 @@ class Grass {
             score+=5;
             let that = this;
             setTimeout(function () {
+                let i = that.id
                 curObjects.splice(that, 1)
-                objectList["obstacle"].push(that)
+                objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass", "trap"))
             }, 0)
             document.getElementById("coinsound").play()
         }

@@ -37,15 +37,17 @@ class Card{
         if(this.y>1000){
             let that = this;
             setTimeout( function() {
-                curObjects.splice(that, 1)
-                objectList["obstacle"].push(that)
+                let i = that.id
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                objectList["obstacle"].push(new Card(i, 0, 0, 200, 200, "card", i, "collect"))
             },0)
         }
     }
     hit(){
         let that = this;
         setTimeout( function() {
-            curObjects.splice(that, 1)
+            
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
             collectedLogoList.push(availibleCompanies[that.companyIndex]["name"])
         },0)
         document.getElementById("cardsound").play()

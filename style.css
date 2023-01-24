@@ -52,7 +52,7 @@ div {
 }
 
 .grassObstacle {
-    background-image: url('images/grass.png');
+    background-image: url('public/images/grass.png');
 
     position: absolute;
     left: 30rem;
@@ -64,7 +64,7 @@ div {
 }
 
 .leftObstacle {
-    background-image: url('images/goleft.png');
+    background-image: url('public/images/goleft.png');
     position: absolute;
     left: 30rem;
     width: 8rem;
@@ -74,7 +74,7 @@ div {
 }
 
 .rightObstacle {
-    background-image: url('images/goright.png');
+    background-image: url('public/images/goright.png');
     position: absolute;
     left: 30rem;
     width: 8rem;
@@ -82,7 +82,7 @@ div {
     color: rgb(255, 202, 58);
 }
 .coin {
-    background-image: url('images/coint.png');
+    background-image: url('public/images/coint.png');
     position: absolute;
     width: 8rem;
     height: 8rem;
@@ -108,7 +108,7 @@ div {
   
 }
 #setting {
-    background-image: url('images/setting.png');
+    background-image: url('public/images/setting.png');
     position: absolute;
     left: 2rem;
     top: 1rem;
@@ -117,7 +117,7 @@ div {
     z-index:100;
 }
 #restart {
-    background-image: url('images/restart.png');
+    background-image: url('public/images/restart.png');
     position: absolute;
     left: 400px;
     top: 700px;
@@ -126,7 +126,7 @@ div {
     z-index:100;
 }
 #start {
-    background-image: url('images/start.png');
+    background-image: url('public/images/start.png');
     position: absolute;
     left: 400px;
     top: 700px;
@@ -155,4 +155,12 @@ div {
     width: 64rem;
     height: 52rem;
     top: 48rem;
+}
+#filter{
+    position: absolute;
+    width: 1200px;
+    height: 1000px;
+    background-color: rgb(0, 0, 59);
+    z-index: 5;
+    opacity: 0;
 }

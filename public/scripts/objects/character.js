@@ -28,6 +28,9 @@ class Character {
     // ctx.fillRect(this.x,this.y, this.w, this.h)  
     bgctx.fillStyle = "black"
     bgctx.fillRect(this.x, this.y, this.w, this.h)
+
+    ctx.filter = "saturate(2)";
+
     if (this.direction != "none") {
       let img = document.getElementById(this.mover);
       if (this.direction == "left") {
@@ -45,6 +48,8 @@ class Character {
 
     let playerpfp = document.getElementById("playerpfp");
     ctx.drawImage(playerpfp, this.x + 50 + this.barrelframes[this.frame], this.y + 50, this.w - 100, this.h - 100);
+
+    ctx.filter = "none"; 
 
     if (invince > 0) {
       let playerpfp = document.getElementById("playerhalo");
