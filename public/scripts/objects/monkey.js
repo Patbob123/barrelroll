@@ -58,7 +58,7 @@ class Monkey{
         let that = this;
         setTimeout( function() {
           let i = that.id
-          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
           objectList["obstacle"].push(new Monkey(i, 0, 0, 200, 200, "monkey", "trap"))
       },0)
       }
@@ -81,7 +81,7 @@ class Monkey{
             let that = this;
             setTimeout(function () {
                 let i = that.id
-                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(new Monkey(i, 0, 0, 200, 200, "monkey", "trap"))
             }, 0)
             document.getElementById("coinsound").play()

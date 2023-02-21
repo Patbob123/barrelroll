@@ -25,7 +25,7 @@ class Halo{
             let that = this;
             setTimeout( function() {
                 let i = that.id
-                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(new Halo(i, 0, 0, 200, 200, "halo", "collect"))
             },0)
         }
@@ -36,7 +36,7 @@ class Halo{
         let that = this;
         setTimeout( function() {
             let i = that.id
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(new Halo(i, 0, 0, 200, 200, "halo", "collect"))
         },0)
         document.getElementById("halosound").play()

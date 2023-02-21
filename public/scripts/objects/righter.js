@@ -25,6 +25,7 @@ class Righter{
       this.abilStatus = 1;
     }
     if(this.abilStatus == 1){
+      document.getElementById("rocksound").play()
       this.abil()
     }else if(this.abilStatus == 0){
       this.oldX = this.x;
@@ -36,7 +37,7 @@ class Righter{
       let that = this;
       setTimeout( function() {
         let i = that.id
-        curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+        curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
         objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter", "trap"))
     },0)
     }
@@ -61,7 +62,7 @@ class Righter{
       let that = this;
       setTimeout(function () {
           let i = that.id
-          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
           objectList["obstacle"].push(new Righter(i, 0, 0, 200, 200, "righter", "trap"))
       }, 0)
       document.getElementById("coinsound").play()

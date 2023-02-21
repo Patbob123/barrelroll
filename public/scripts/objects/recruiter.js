@@ -59,7 +59,7 @@ class Recruiter{
         setTimeout( function() {
           that.frame = 0;
           let i = that.id
-          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
           objectList["obstacle"].push(new Recruiter(i, 0, 0, 200, 200, "recruiter", i, "collect"))
       },0)
       }
@@ -78,7 +78,7 @@ class Recruiter{
         let that = this;
         setTimeout( function() {
             let i = that.id
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(new Recruiter(i, 0, 0, 200, 200, "recruiter", i, "collect"))
             recruitergot = true;
         },0)

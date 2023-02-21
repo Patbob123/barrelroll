@@ -31,6 +31,7 @@ class Lefter{
         this.abilStatus = 1;
       }
       if(this.abilStatus == 1){
+        document.getElementById("rocksound").play()
         this.abil()
       }else{
         this.oldX = this.x;
@@ -42,7 +43,7 @@ class Lefter{
         let that = this;
         setTimeout( function() {
           let i = that.id
-          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
           objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter", "trap"))
       },0)
       }
@@ -68,7 +69,7 @@ class Lefter{
         let that = this;
         setTimeout(function () {
             let i = that.id
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(new Lefter(i, 0, 0, 200, 200, "lefter", "trap"))
         }, 0)
         document.getElementById("coinsound").play()

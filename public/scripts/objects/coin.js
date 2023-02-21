@@ -25,7 +25,7 @@ class Coin{
             let that = this;
             setTimeout( function() {
                 let i = that.id
-                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin", "collect"))
             },0)
         }
@@ -35,8 +35,9 @@ class Coin{
         let that = this;
         setTimeout( function() {
             let i = that.id
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(new Coin(i, 0, 0, 200, 200, "coin", "collect"))
+            console.log(curObjects)
         },0)
         effectQueue.push(new Collect(this.w, this.h, this.src+"collect", 50))
         document.getElementById("coinsound").play()

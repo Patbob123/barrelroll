@@ -38,7 +38,7 @@ class Card{
             let that = this;
             setTimeout( function() {
                 let i = that.id
-                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(new Card(i, 0, 0, 200, 200, "card", i, "collect"))
             },0)
         }
@@ -47,7 +47,7 @@ class Card{
         let that = this;
         setTimeout( function() {
             
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             collectedLogoList.push(availibleCompanies[that.companyIndex]["name"])
         },0)
         document.getElementById("cardsound").play()

@@ -81,7 +81,7 @@ function setupEnvironment(){
   score = 1;
   scoreTick = 0;
   invince = 0;
-  gamespeed = 100;
+  gamespeed = 10;
   spawnRate = 5000;
   spawnTick = 0;
   isNight = false;
@@ -174,7 +174,7 @@ function resetGame() {
 
 function dayNightCycle(){
   console.log(score%5)
-  if(score%5==0){
+  if(score%10==0){
     console.log(score%5)
     isNight = !isNight
     if(isNight){
@@ -192,7 +192,7 @@ function addscore() {
   if (scoreTick % 100 == 0) {
     dayNightCycle();
     score++;
-    gamespeed = 100 + score * 10;
+    gamespeed = 10 + score *10;
   }
     for (let i = 1; i < 5; i++) {
       document.getElementById("number" + i).style["background-image"] = "none";
@@ -252,16 +252,18 @@ function startDown() {
  }
 
 function pauseGame() {
-  if(!permaPause){
-    pause = !pause
-    if(pause){
-      uost.pause()
-      ctx.fillStyle = "black"
-      ctx.globalAlpha = 0.5
-      ctx.fillRect(0,0, can.width, can.height)  
-    }else{
-      uost.play()
-      ctx.globalAlpha = 1
+  if(!startMenu){
+    if(!permaPause){
+      pause = !pause
+      if(pause){
+        uost.pause()
+        ctx.fillStyle = "black"
+        ctx.globalAlpha = 0.5
+        ctx.fillRect(0,0, can.width, can.height)  
+      }else{
+        uost.play()
+        ctx.globalAlpha = 1
+      }
     }
   }
 }

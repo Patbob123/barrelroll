@@ -51,7 +51,7 @@ class Swinger{
         let that = this;
         setTimeout( function() {
           let i = that.id
-          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+          curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
           objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger", "trap"))
       },0)
       }
@@ -64,7 +64,7 @@ class Swinger{
         let that = this;
         setTimeout(function () {
             let i = that.id
-            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
+            curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(new Swinger(i, 0, 0, 100, 100, "swinger", "trap"))
         }, 0)
         document.getElementById("coinsound").play()

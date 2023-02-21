@@ -22,9 +22,8 @@ class Grass {
             setTimeout(function () {
                 let i = that.id
                 console.log(curObjects)
-                console.log(that)
-                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==j)));
-
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
+                console.log(curObjects)
                 objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass", "trap"))
             }, 0)
         }
@@ -37,7 +36,7 @@ class Grass {
             let that = this;
             setTimeout(function () {
                 let i = that.id
-                curObjects.splice(that, 1)
+                curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(new Grass(i, 0, 0, 200, 200, "grass", "trap"))
             }, 0)
             document.getElementById("coinsound").play()

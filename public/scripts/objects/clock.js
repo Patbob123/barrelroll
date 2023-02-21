@@ -24,7 +24,7 @@ class Clock{
         if(this.y>1000){
             let that = this;
             setTimeout( function() {
-                curObjects.splice(that, 1)
+                curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
                 objectList["obstacle"].push(that)
             },0)
         }
@@ -33,7 +33,7 @@ class Clock{
         score+=5;
         let that = this;
         setTimeout( function() {
-            curObjects.splice(that, 1)
+            curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             objectList["obstacle"].push(that)
         },0)
         document.getElementById("coinsound").play()
