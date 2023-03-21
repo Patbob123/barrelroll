@@ -23,6 +23,13 @@ div {
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     position: absolute;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #plane {
@@ -104,7 +111,7 @@ div {
     top: 2rem;
     height: 50px;
     width: 300px;
-    background-color: aquamarine;
+    background-color: rgb(137, 219, 191);
   
 }
 #setting {
@@ -133,6 +140,80 @@ div {
     width: 400px;
     height: 200px;
     z-index:100;
+}
+.playerOptions{
+    z-index: 100;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 5% 3% 2% 3%;
+    width: 1200px;
+    height: 1000px;
+}
+#rungame {
+    background-image: url('public/images/start.png');
+    position: absolute;
+    left: 400px;
+    top: 700px;
+    width: 400px;
+    height: 200px;
+    z-index:100;
+}
+.playercard{
+    
+    font: 4em sans-serif; 
+    box-sizing: border-box;
+    padding: 2% 5% 2% 5%;
+    background-image: url('public/images/playercard.png');
+    background-repeat: no-repeat;
+    position: relative;
+    width: 1000px;
+    height: 120px;
+    left: 1200px;
+}
+.companycard{
+    background-image: url('public/images/companycard.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font: 30px sans-serif; 
+    box-sizing: border-box;
+    padding: 2% 2% 2% 2%;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    left: 1200px;
+    text-align: center;
+}
+.companyimage{
+    background-color: aqua;
+    font: 50px sans-serif; 
+    box-sizing: border-box;
+    padding: 2% 2% 2% 2%;
+    width: 110px;
+    height: 110px;
+}
+.companyname{
+    background-color: aqua;
+    font: 50px sans-serif; 
+    box-sizing: border-box;
+    padding: 2% 5% 2% 5%;
+    width: 180px;
+    height: 20px;
+}
+.companyoptions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font: 4em sans-serif; 
+    box-sizing: border-box;
+    padding: 2% 5% 2% 5%;
+    position: relative;
+    width: 1000px;
+    height: 600px;
 }
 #canvas{
     background: blue;

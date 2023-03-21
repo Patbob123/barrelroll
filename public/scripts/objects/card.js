@@ -27,7 +27,7 @@ class Card{
         ctx.drawImage(img, this.frame*16,0, 16, 16, 
             this.x, this.y, this.w, this.h);
 
-        let logoimg = availibleCompanies[this.companyIndex]["logoImg"]
+        let logoimg = rfmData.companyOptions[this.companyIndex]["logoImg"]
         ctx.drawImage(logoimg, this.x+this.w/4, this.y+this.h/8+this.upDownFrame[this.frame], this.w/2, this.h/2);
     }
     update(){
@@ -46,7 +46,7 @@ class Card{
     hit(){
         let that = this;
         setTimeout( function() {
-            
+            let i = that.id
             curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
             collectedLogoList.push(availibleCompanies[that.companyIndex]["name"])
         },0)

@@ -14,6 +14,9 @@ let collectedLogoList = [];
 let effectQueue = [];
 
 let startMenu = true;
+let startScreen;
+
+let gamebackground = new Background(0, 0, 1200, 1000, "background")
 
 let can = document.getElementById('thecanvas');
 let ctx = can.getContext('2d')
@@ -23,7 +26,7 @@ let parcan = document.getElementById('particlecanvas');
 let parctx = can.getContext('2d')
 parctx.imageSmoothingEnabled = false
 
-let playerimgsrc = "public/pfp.png"
+let playerimg = new Image;
 
 let bgcan = document.getElementById('bgcanvas');
 let bgctx = bgcan.getContext('2d')
@@ -33,13 +36,12 @@ let uost = document.getElementById("uost")
 
 document.addEventListener("DOMContentLoaded", function(event){
   let pfp = document.getElementById('playerpfp');
-  let playerimg = new Image;
   playerimg.onload = function() {
     pfp.src = playerimg.src;
   }
-  playerimg.src = playerimgsrc
+ // playerimg.src = playerimgsrc
 
-  objectList["background"] = new Background(0, 0, 1200, 1000, "background")
+  objectList["background"] = gamebackground;
   objectList["start"] = new Start()
   startGame();
   spawnObstacles()
@@ -51,20 +53,20 @@ function loadImages(){
 }
 
 function loadLogos(){
-  for(let i = 0;i<availibleCompanies.length;i++){
+  for(let i = 0;i<rfmData.companyOptions.length;i++){
     let logoImg = document.createElement("img")
-    logoImg.src = availibleCompanies[i]["logoFile"]
-    availibleCompanies[i]["logoImg"] = logoImg
+    logoImg.src = rfmData.companyOptions[i]["avatar"]
+    rfmData.companyOptions[i]["logoImg"] = logoImg
   }
-  console.log(availibleCompanies)
+  console.log(rfmData.companyOptions)
 }
 
 function startGame(){
-  let startscreen = new Start()
+  startscreen = new Start()
   loadLogos()
 
    let startBG = setInterval(function () {
-    if(!startMenu){
+    if(startscreen.status == 0){
       clearInterval(startBG);
     }
       for(let i =0;i<objectList.length;i++){}
@@ -75,6 +77,18 @@ function startGame(){
   setupEnvironment()
 }
 
+function setupMusic(){
+  uost.currentTime = 0
+  uost.volume = 0.1
+  let gameResp = uost.play()
+  if (gameResp!== undefined) {
+    gameResp.then(_ => {
+      console.log("music starts")
+    }).catch(err => {
+       //console.log(err)
+    });
+}
+}
 
 function setupEnvironment(){
   permaPause = false;
@@ -91,19 +105,17 @@ function setupEnvironment(){
   collectedLogoList = [];
   effectQueue = [];
   halocount = 0;
-  uost.currentTime = 0
-  uost.volume = 0.1
- uost.play()
+  setupMusic();
 
   ctx.clearRect(0, 0, can.width, can.height)
-  objectList["background"] = new Background(0, 0, 1200, 1000, "background")
+  objectList["background"] = gamebackground
   objectList["character"] = new Character(100 + 2 * 200, 700, 200, 200, "barrelidle", "barrelmove", "none")
 
   objectList["obstacle"] = []
   for (let i = 0; i < 1; i++) {
     objectList["obstacle"].push(new Recruiter(i,0,0,200,200,"recruiter","collect"));
   }
-  for (let i = 0; i < availibleCompanies.length; i++) {
+  for (let i = 0; i < rfmData.companyOptions.length; i++) {
     objectList["obstacle"].push(new Card(i, 0, 0, 200, 200, "card", i, "collect"));
   }
   for (let i = 0; i < 50; i++) {
@@ -220,14 +232,15 @@ console.log(objectList)
 
 
 function settingDown() {
-  document.getElementById("setting").style["background-image"] = 'url("public/images/settingdown.png")';
-  pauseGame()
+  if(!pause){
+    document.getElementById("setting").style["background-image"] = 'url("public/images/settingdown.png")';
+    pauseGame()
+  }else{
+    document.getElementById("setting").style["background-image"] = 'url("public/images/setting.png")';
+    pauseGame()
+  }
 }
 
-function settingUp() {
-  document.getElementById("setting").style["background-image"] = 'url("public/images/setting.png")';
-  
-}
 
 function restartDown() {
  // document.getElementById("restart").style["background-image"] = 'url("images/restarthold.png")';
@@ -243,13 +256,111 @@ function restartUp() {
 
 function startDown() {
   // document.getElementById("restart").style["background-image"] = 'url("images/restarthold.png")';
-  $("#start").animate({ opacity: 0 }, 100, 'linear', function () {
+  let endstartBG = setInterval(function () {
+    console.log(startscreen.status)
+    if(startscreen.status == 0){
+      clearInterval(endstartBG);
+      this.startPlayerOptions();
+    }
+      objectList["background"].updateBG()
+      startscreen.disappear()
+    },10)
+  $("#start").animate({ left: -1000 }, 200, 'linear', function () {
     document.getElementById("start").classList.add("invisible")
   });
  //  document.getElementById("start").classList.add("invisible")
-   startMenu = false;
-   resetGame()
+   //startMenu = false;
+   //resetGame()
  }
+
+function startPlayerOptions(){
+ 
+  for(let i=0;i<rfmData.userOptions.length;i++){
+    
+    let playerCard = $('<div>').addClass("playercard")
+    .attr({
+        id: "playercard"+i,
+        "data-index": i,
+    })
+    .text(rfmData.userOptions[i]["user"])
+    
+
+  //  playerCard.animate({left: "1200px"}, 100, 'linear');
+    console.log((playerCard))
+    $("#playerOptions").append(playerCard)
+    document.getElementById("playercard"+i).onclick = showCompanies
+    
+    playerCard.animate({left: "0"}, 200, 'linear');
+  }
+}
+
+async function showCompanies(e){
+  playerimg.src = rfmData.userOptions[e.target.dataset.index]["avatar"];
+  console.log(e.target.dataset.index)
+  for(let i=0;i<rfmData.userOptions.length;i++){
+    $("#playercard"+i).animate({left: "-1200px"}, 200, 'linear', function () {
+      $("#playercard"+i).remove();
+    });
+  }
+
+  let runGame = $('<div>')
+    .attr({
+        id: "rungame",
+    })
+    $("#playerOptions").append(runGame)
+
+  let companyOptions =  $('<div>').addClass("companyoptions")
+  .attr({
+    id: "companyOptions",
+})
+  $("#playerOptions").append(companyOptions)
+
+  console.log(rfmData)
+  for(let i=0;i<rfmData.companyOptions.length;i++){
+    
+    let companyCard = $('<div>').addClass("companycard")
+    .attr({
+        id: "companycard"+i,
+        "data-index": i,
+    })
+    let companyName = $('<div>').addClass("companyName")
+    .attr({
+        id: "companyname"+i,
+    }).text(rfmData.companyOptions[i]["company"])
+    let companyImage = $('<div>').addClass("companyimage")
+    .attr({
+        id: "companyimage"+i,
+        "data-index": i,
+        "z-index": 89,
+    })
+    
+    
+    
+    $("#companyOptions").append(companyCard)
+    $("#companycard"+i).append(companyImage)
+    $("#companycard"+i).append(companyName)
+    document.getElementById("companyimage"+i).style.backgroundImage = `url("${rfmData.companyOptions[i].avatar}")`
+    companyCard.animate({left: "0"}, 200, 'linear');
+
+  //  playerCard.animate({left: "1200px"}, 100, 'linear');
+    console.log((companyCard))
+
+  }
+
+
+  $("#rungame").animate({ left: "1200px" }, 0, 'linear', function () {
+    document.getElementById("rungame").classList.remove("invisible")
+  });
+  $("#rungame").animate({ left: "400px" }, 200, 'linear');
+  document.getElementById("rungame").onclick = runnerGame
+
+}
+
+function runnerGame(){
+  $("#playerOptions").remove();
+  startMenu = false;
+   resetGame()
+}
 
 function pauseGame() {
   if(!startMenu){
@@ -263,19 +374,62 @@ function pauseGame() {
       }else{
         uost.play()
         ctx.globalAlpha = 1
+        
       }
     }
   }
 }
-
 function die(){
-  let deathscreen = new Death()
-  deathscreen.appear();
+  // let deathscreen = new Death()
+  // deathscreen.appear();
+  this.gamescoreLeaderboard();
   permaPause = true;
   pause = true;
   document.getElementById("diedsound").play()
   uost.volume = 0.05
   console.log({"Recruiter":recruitergot, "collectedLogoList":collectedLogoList, "score": score, "halocount": halocount})
+}
+function gamescoreLeaderboard(){
+  let scoreLeaderboard = $('<div>').addClass("playeroption")
+  .attr({
+      id: "scoreLeaderboard",
+  })
+  for(let i=0;i<rfmData.gamePlayScore.length;i++){
+    
+    let scoreCard = $('<div>').addClass("playercard")
+    .attr({
+        id: "scoreCard"+i,
+        "data-index": i,
+    })
+    .text(rfmData.gamePlayScore[i]["user"])
+    
+
+    $("#scoreLeaderboard").append(scoreCard)
+    
+    scoreCard.animate({left: "0"}, 200, 'linear');
+  }
+  document.body.appendChild(scoreLeaderboard)
+ 
+}
+function tileLeaderboard(){
+  let tileLeaderboard = $('<div>').addClass("playeroption")
+  .attr({
+      id: "tileLeaderboard",
+  })
+  for(let j=0;j<rfmData.companyTileScore.length;j++){
+    for(let i=0;i<rfmData.companyTileScore[j].length;i++){
+      let tileScoreCard = $('<div>').addClass("playercard")
+      .attr({
+          id: "tileScoreCard"+i,
+      })
+      .text(rfmData.companyTileScore[j][i]["user"])
+      
+
+      $("#tileLeaderboard").append(tileScoreCard)
+      
+      tileScoreCard.animate({left: "0"}, 200, 'linear');
+    }
+  }
 }
 
 function round(number, increment, offset) {
