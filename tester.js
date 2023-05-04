@@ -7,7 +7,6 @@
 
 async function getinfo(){
 let fetchinput = {
-    'Access-Control-Allow-Origin': '*',
     method: "GET",
     mode: "cors",
     headers: {

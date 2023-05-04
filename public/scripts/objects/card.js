@@ -48,7 +48,7 @@ class Card{
         setTimeout( function() {
             let i = that.id
             curObjects = curObjects.filter(j => !((j.constructor.name == that.constructor.name) && (j.id==i)));
-            collectedLogoList.push(availibleCompanies[that.companyIndex]["name"])
+            collectedLogoList.push(rfmData.companyOptions[that.companyIndex]["company"])
         },0)
         document.getElementById("cardsound").play()
     }

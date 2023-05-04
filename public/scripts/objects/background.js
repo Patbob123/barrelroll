@@ -10,8 +10,8 @@ class Background{
         ctx.fillStyle = "black"
         ctx.fillRect(0, 0, this.w, this.h)  
         let img = document.getElementById(this.src);
-        ctx.drawImage(img, this.x,this.y,this.w, this.h);
-        ctx.drawImage(img, this.x,this.y-this.h,this.w, this.h);
+        ctx.drawImage(img, this.x,this.y,this.w, this.h+1);
+        ctx.drawImage(img, this.x,this.y-this.h,this.w, this.h+1);
     }
     updateBG(){
         this.draw(ctx)

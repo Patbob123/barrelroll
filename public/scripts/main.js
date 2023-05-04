@@ -14,7 +14,9 @@ let collectedLogoList = [];
 let effectQueue = [];
 
 let startMenu = true;
+let playerOptions;
 let startScreen;
+let nextButton;
 
 let gamebackground = new Background(0, 0, 1200, 1000, "background")
 
@@ -277,12 +279,15 @@ function startPlayerOptions(){
  
   for(let i=0;i<rfmData.userOptions.length;i++){
     
-    let playerCard = $('<div>').addClass("playercard")
+    let playerCard = $('<div>').addClass("linecard playercard")
     .attr({
         id: "playercard"+i,
         "data-index": i,
     })
-    .text(rfmData.userOptions[i]["user"])
+    const playerUser = $('<div>').text(rfmData.userOptions[i]["user"]);
+    const playerStreak = $('<div>').text(rfmData.userOptions[i]["streak"]).addClass("right");
+    playerCard.append(playerUser)
+    playerCard.append(playerStreak)
     
 
   //  playerCard.animate({left: "1200px"}, 100, 'linear');
@@ -294,67 +299,7 @@ function startPlayerOptions(){
   }
 }
 
-async function showCompanies(e){
-  playerimg.src = rfmData.userOptions[e.target.dataset.index]["avatar"];
-  console.log(e.target.dataset.index)
-  for(let i=0;i<rfmData.userOptions.length;i++){
-    $("#playercard"+i).animate({left: "-1200px"}, 200, 'linear', function () {
-      $("#playercard"+i).remove();
-    });
-  }
 
-  let runGame = $('<div>')
-    .attr({
-        id: "rungame",
-    })
-    $("#playerOptions").append(runGame)
-
-  let companyOptions =  $('<div>').addClass("companyoptions")
-  .attr({
-    id: "companyOptions",
-})
-  $("#playerOptions").append(companyOptions)
-
-  console.log(rfmData)
-  for(let i=0;i<rfmData.companyOptions.length;i++){
-    
-    let companyCard = $('<div>').addClass("companycard")
-    .attr({
-        id: "companycard"+i,
-        "data-index": i,
-    })
-    let companyName = $('<div>').addClass("companyName")
-    .attr({
-        id: "companyname"+i,
-    }).text(rfmData.companyOptions[i]["company"])
-    let companyImage = $('<div>').addClass("companyimage")
-    .attr({
-        id: "companyimage"+i,
-        "data-index": i,
-        "z-index": 89,
-    })
-    
-    
-    
-    $("#companyOptions").append(companyCard)
-    $("#companycard"+i).append(companyImage)
-    $("#companycard"+i).append(companyName)
-    document.getElementById("companyimage"+i).style.backgroundImage = `url("${rfmData.companyOptions[i].avatar}")`
-    companyCard.animate({left: "0"}, 200, 'linear');
-
-  //  playerCard.animate({left: "1200px"}, 100, 'linear');
-    console.log((companyCard))
-
-  }
-
-
-  $("#rungame").animate({ left: "1200px" }, 0, 'linear', function () {
-    document.getElementById("rungame").classList.remove("invisible")
-  });
-  $("#rungame").animate({ left: "400px" }, 200, 'linear');
-  document.getElementById("rungame").onclick = runnerGame
-
-}
 
 function runnerGame(){
   $("#playerOptions").remove();
@@ -383,55 +328,203 @@ function die(){
   // let deathscreen = new Death()
   // deathscreen.appear();
   this.gamescoreLeaderboard();
+  pauseGame()
   permaPause = true;
-  pause = true;
+  
   document.getElementById("diedsound").play()
   uost.volume = 0.05
   console.log({"Recruiter":recruitergot, "collectedLogoList":collectedLogoList, "score": score, "halocount": halocount})
 }
-function gamescoreLeaderboard(){
-  let scoreLeaderboard = $('<div>').addClass("playeroption")
+
+async function showCompanies(e){
+  playerimg.src = rfmData.userOptions[e.target.dataset.index]["avatar"];
+  console.log(e.target.dataset.index)
+  for(let i=0;i<rfmData.userOptions.length;i++){
+    $("#playercard"+i).animate({left: "-1200px"}, 200, 'linear', function () {
+      $("#playercard"+i).remove();
+    });
+  }
+    let nextButtonText = $('<div>').addClass("normalText").text("Start");
+    nextButton = $('<div>')
+    .attr({
+        id: "rungame",
+    })
+    nextButton.append(nextButtonText);
+    $("#playerOptions").append(nextButton)
+
+  let companyOptions =  $('<div>').addClass("companyoptions")
+  .attr({
+    id: "companyOptions",
+})
+  $("#playerOptions").append(companyOptions)
+
+  
+  console.log(rfmData)
+  for(let i=0;i<rfmData.companyOptions.length;i++){
+    
+    let companyCard = $('<div>').addClass("companycard")
+    .attr({
+        id: "companycard"+i,
+        "data-index": i,
+    })
+    let companyName = $('<div>').addClass("companyName")
+    .attr({
+        id: "companyname"+i,
+    }).text(rfmData.companyOptions[i]["company"])
+    let companyImage = $('<div>').addClass("companyimage")
+    .attr({
+        id: "companyimage"+i,
+        "data-index": i,
+        "z-index": 89,
+    })
+    
+    
+    
+    $("#companyOptions").append(companyCard)
+    $("#companycard"+i).append(companyImage)
+    $("#companycard"+i).append(companyName)
+    document.getElementById("companyimage"+i).style.backgroundImage = `url("${rfmData.companyOptions[i].avatar}")`
+    companyCard.animate({left: "0"}, 200, 'linear');
+   
+  //  playerCard.animate({left: "1200px"}, 100, 'linear');
+    console.log((companyCard))
+
+  }
+
+ 
+  $("#rungame").animate({ left: "1200px" }, 0, 'linear', function () {
+    document.getElementById("rungame").classList.remove("invisible")
+  });
+  $("#rungame").animate({ left: "33%" }, 200, 'linear', function (){
+    let curCompaniesText =  $('<div>').addClass("normalText")
+    .text("Current Companies")
+    $("#playerOptions").append(curCompaniesText)
+  });
+ 
+  document.getElementById("rungame").onclick = runnerGame
+
+}
+async function gamescoreLeaderboard(){
+  console.log("A")
+  let scoreText =  $('<div>').addClass("normalText")
+  .text("Score Leaderboard")
+
+  let scoreLeaderboard = $('<div>').addClass("scoreBoard")
   .attr({
       id: "scoreLeaderboard",
   })
+  scoreLeaderboard.append(scoreText)
+
   for(let i=0;i<rfmData.gamePlayScore.length;i++){
-    
-    let scoreCard = $('<div>').addClass("playercard")
+    console.log(rfmData.gamePlayScore)
+    let scoreCard = $('<div>').addClass("linecard scorecard")
     .attr({
         id: "scoreCard"+i,
         "data-index": i,
     })
-    .text(rfmData.gamePlayScore[i]["user"])
-    
+    const playerUser = $('<div>').text(rfmData.gamePlayScore[i]["user"]);
+    const playerScore = $('<div>').text(rfmData.gamePlayScore[i]["score"]).addClass("right");
+    scoreCard.append(playerUser)
+    scoreCard.append(playerScore)
 
-    $("#scoreLeaderboard").append(scoreCard)
-    
+    scoreLeaderboard.append(scoreCard)
     scoreCard.animate({left: "0"}, 200, 'linear');
   }
-  document.body.appendChild(scoreLeaderboard)
  
+  $("#leaderBoard").append(scoreLeaderboard)
+  scoreLeaderboard.animate({opacity: 1}, 200, 'linear');
+
+  nextButton.animate({ left: "1200px" }, 0, 'linear', function () {
+
+    document.getElementById("rungame").classList.remove("invisible")
+  });
+  nextButton.addClass("normalText").text("Continue");
+  nextButton.animate({ left: "30%" }, 200, 'linear')
+  scoreLeaderboard.append(nextButton)
+  document.getElementById("rungame").onclick = tileLeaderboard
+  
+  //appendRunGame(tileLeaderboard, function(){});
+  
 }
-function tileLeaderboard(){
-  let tileLeaderboard = $('<div>').addClass("playeroption")
+async function tileLeaderboard(){
+  $("#scoreLeaderboard").animate({left: "-1200px"}, 200, 'linear', function () {
+    $("#scoreLeaderboard").remove();
+  });
+  let tileLeaderboard = $('<div>').addClass("playerOptions")
   .attr({
       id: "tileLeaderboard",
   })
-  for(let j=0;j<rfmData.companyTileScore.length;j++){
-    for(let i=0;i<rfmData.companyTileScore[j].length;i++){
-      let tileScoreCard = $('<div>').addClass("playercard")
-      .attr({
-          id: "tileScoreCard"+i,
-      })
-      .text(rfmData.companyTileScore[j][i]["user"])
-      
+  let tabBar = $('<div>').addClass("tabBar")
+  .attr({
+      id: "tabBar",
+  })
 
-      $("#tileLeaderboard").append(tileScoreCard)
-      
-      tileScoreCard.animate({left: "0"}, 200, 'linear');
+  tileScoreArr = rfmData.companyTileScore
+  
+  for(let j=0;j<tileScoreArr.length;j++){
+    
+    for(let key in tileScoreArr[j]){
+      //populateTileLeaderBoard(tileScoreArr[j][key], tileLeaderboard)
+    let tabButton = $('<div>').addClass("tabbuttons")
+      .attr({
+          'data-company': j,
+          id: "tabButton"+j,
+      }).text(key)
+      tabBar.append(tabButton)
     }
   }
+  $("#leaderBoard").append(tabBar)
+  $("#leaderBoard").append(tileLeaderboard)
+  
+  for(let j=0;j<tileScoreArr.length;j++){
+    for(let key in tileScoreArr[j]){
+    document.getElementById("tabButton"+j).addEventListener("click", ()=>{
+      
+      populateTileLeaderBoard(tileScoreArr[j][key], tileLeaderboard)
+    })
+  }
+ }
+ console.log(tileLeaderboard)
+}
+
+function populateTileLeaderBoard(company, tileLeaderboard){
+  console.log(company)
+  let test = document.getElementById("tileLeaderboard")
+  while (test.firstChild) {
+    test.lastChild.remove();;
+  }
+  for(let i=0;i<company.length;i++){
+    let tileScoreCard = $('<div>').addClass("linecard playercard")
+    .attr({
+        id: "tileScoreCard"+i,
+    })
+    const playerUser = $('<div>').text(company[i]["user"]);
+    const playerTiles = $('<div>').addClass("right").text(company[i]["tiles"]);
+    tileScoreCard.append(playerUser)
+    tileScoreCard.append(playerTiles)
+    
+
+    tileLeaderboard.append(tileScoreCard)
+    
+    tileScoreCard.animate({left: "0"}, 200, 'linear');
+  }
+  
+  $("#leaderBoard").append(tileLeaderboard)
+
+
 }
 
 function round(number, increment, offset) {
   return Math.ceil((number - offset) / increment) * increment + offset;
 }
+
+// function appendRunGame(curFunction, secFunction){
+//   console.log(curFunction)
+//   $("#rungame").animate({ left: "1200px" }, 0, 'linear', function () {
+//     document.getElementById("rungame").classList.remove("invisible")
+//   });
+//   $("#rungame").animate({ left: "400px" }, 200, 'linear', function (){
+//     secFunction();
+//   });
+//   document.getElementById("rungame").onclick = eval(curFunction)
+// }

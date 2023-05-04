@@ -41,27 +41,27 @@
 <audio  id="uost" loop><source src="public/audio/c4ed.wav" type="audio/wav"></audio>
 
 <body>
-    <div class="playerOptions" id="playerOptions">
-
+    <div class="main">
+        <div class="playerOptions" id="playerOptions"></div>
+        <div class="leaderBoard" id="leaderBoard"></div>
+        
+        <div style="position: relative;">
+            <canvas id="thecanvas" style="z-index:3" width="1200" height="1000"></canvas>
+            <canvas id="bgcanvas" style="z-index:1"width="1200" height="1000"></canvas>
+            <canvas id="particlecanvas" style="z-index:4"width="1200" height="1000"></canvas>
+        </div>
+        <div id="filter"></div>
+        <div id="setting" onclick="settingDown()"></div>
+        <div class="invisible" id="restart" onmousedown="restartDown()" onmouseup="restartUp()"></div>
+        <div id="start"  onclick="startDown()"><div class="normalText">START</div></div>
+        <div id="score">
+            <div class="numbers" id="number1"></div>
+            <div class="numbers" id="number2"></div>
+            <div class="numbers" id="number3"></div>
+            <div class="numbers" id="number4"></div>
+            <div class="numbers" id="number5"></div>
+        </div>
     </div>
-    
-    <div style="position: relative;">
-        <canvas id="thecanvas" style="z-index:3" width="1200" height="1000"></canvas>
-        <canvas id="bgcanvas" style="z-index:1"width="1200" height="1000"></canvas>
-        <canvas id="particlecanvas" style="z-index:4"width="1200" height="1000"></canvas>
-    </div>
-    <div id="filter"></div>
-    <div id="setting" onclick="settingDown()"></div>
-    <div class="invisible" id="restart" onmousedown="restartDown()" onmouseup="restartUp()"></div>
-    <div id="start" onclick="startDown()"></div>
-    <div id="score">
-        <div class="numbers" id="number1"></div>
-        <div class="numbers" id="number2"></div>
-        <div class="numbers" id="number3"></div>
-        <div class="numbers" id="number4"></div>
-        <div class="numbers" id="number5"></div>
-    </div>
-
     <script src="public/scripts/availibleCompanies.js" type="text/javascript"></script>
 
     <script src="public/scripts/objects/clock.js" type="text/javascript"></script>
