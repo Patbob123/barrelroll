@@ -16,11 +16,28 @@ let fetchinput = {
         'Authorization': 'nXcAteBe4FTBHSVWOvuVAgfMWz2FddN0V4BcaAZ2EOXsKUfVKBuubkoUE83jihfX',
     }
 }
+return new Promise((resolve, reject) => {
+    fetch(`https://ifksig3rb36xlwi5qhpmvqcwg40zpyir.lambda-url.ca-central-1.on.aws/`, fetchinput).then(res => {
+    //     fetch(`http://localhost:160${api}`, fetchinput).then(res => {
+        console.log(res)
+        // status = res.status;
+        return res.json();
+    }
+    ).then(res => {
+        // if (status >= 400 && status <= 600) {
+            console.log(res)
 
-return (await fetch(`https://ifksig3rb36xlwi5qhpmvqcwg40zpyir.lambda-url.ca-central-1.on.aws/`, fetchinput)).json()
+        // }
+    }).catch(err => {
+        console.log(err)
+        reject(" Error: " + err);
+    });
+
+})
+
 }
-
-console.log(getinfo())
+getinfo()
+// console.log(getinfo())
 
 
 // fs.writeFile('rfmData.json', JSON.stringify(await getinfo()), (error) => {
